@@ -1,6 +1,7 @@
 import { Request, RequestParamHandler, NextFunction } from "express";
 import DomainError from "../../core/errors/DomainError";
 import { logger } from "../../core/utils/logger";
+import { ValidationError } from 'typeorm';
 import { Errors } from "../../core/constant/errors";
 
 export const handleErrors = (
