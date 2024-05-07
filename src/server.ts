@@ -2,13 +2,16 @@ import express from "express";
 import app from "./app";
 import { settings } from "./core/config/application";
 import { logger } from "./core/utils/logger";
-import { AppDataSource } from "./core/database/data-source";
+import { AppDataSource } from "./core/datasource/data-source";
 
 app.use(express.json());
 
 const startServer = async (): Promise<void> => {
-    
-    await AppDataSource.initialize();
+  AppDataSource.initialize()
+  .then(() => {
+    logger.info("Connected to the database!")
+  })
+  .catch((error) => logger.error(error.message))
 
     app.listen(settings.app_port, () => {
       logger.info(`
